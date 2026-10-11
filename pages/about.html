@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090909">
+
+    <title>About | CineMatix Movie Recommender</title>
+    <meta
+        name="description"
+        content="Discover how CineMatix uses content-based machine learning to find similar movies."
+    >
+
+    <!-- Shared navbar -->
+    <link rel="stylesheet" href="../stylesheets/navbar.css">
+    <script src="../javascript/navbar.js" defer></script>
+
+    <!-- About page -->
+    <link rel="stylesheet" href="../stylesheets/about.css">
+
+    <!-- Shared footer -->
+    <link rel="stylesheet" href="../stylesheets/footer.css">
+    <script src="../javascript/script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="index.html#find-movies" class="logo" aria-label="CineMatix home">
+            <span class="logo-icon">C</span>
+            <span class="logo-text">CINE<span>MATIX</span></span>
+        </a>
+
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+            <a href="index.html" class="nav-link">Trending</a>
+            <a href="index.html#trending" class="nav-link">Find Movies</a>
+            <a href="about.html" class="nav-link active" aria-current="page">
+                About
+            </a>
+        </nav>
+
+        <div class="nav-actions">
+            <button
+                class="theme-toggle"
+                id="theme-toggle"
+                type="button"
+                aria-label="Switch to light theme"
+                title="Toggle theme"
+            >
+                <span id="theme-icon" aria-hidden="true">☾</span>
+            </button>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="nav-links"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="about-page">
+
+        <!-- Introduction -->
+        <section class="about-hero">
+            <div class="about-hero-content">
+                <p class="about-eyebrow">BEHIND THE RECOMMENDATIONS</p>
+
+                <h1>
+                    More than movies.
+                    <span>Meaningful matches.</span>
+                </h1>
+
+                <p class="about-hero-description">
+                    CineMatix is a machine-learning-powered movie
+                    discovery platform designed to help you explore
+                    films, discover similar titles, and find your
+                    next movie to watch.
+                </p>
+
+                <div class="about-hero-actions">
+                    <a href="index.html#trending" class="about-button">
+                        Explore Movies <span aria-hidden="true">→</span>
+                    </a>
+
+                    <a href="#how-it-works" class="about-text-link">
+                        How it works
+                    </a>
+                </div>
+            </div>
+
+            <div class="about-hero-art" aria-hidden="true">
+                <div class="art-glow"></div>
+
+                <div class="art-card art-card-back">
+                    <span>DISCOVER</span>
+                </div>
+
+                <div class="art-card art-card-middle">
+                    <span>EXPLORE</span>
+                </div>
+
+                <div class="art-card art-card-front">
+                    <div class="art-play">▶</div>
+                    <span>CINEMATIX</span>
+                    <small>YOUR NEXT MOVIE STARTS HERE</small>
+                </div>
+
+                <div class="art-orbit orbit-one"></div>
+                <div class="art-orbit orbit-two"></div>
+            </div>
+        </section>
+
+        <!-- Project overview -->
+        <section class="about-intro">
+            <div class="about-section-label">
+                <span class="label-line"></span>
+                <span>THE PROJECT</span>
+            </div>
+
+            <div class="about-intro-grid">
+                <h2>
+                    Finding a movie
+                    <span>should be easier.</span>
+                </h2>
+
+                <div class="about-intro-copy">
+                    <p>
+                        With thousands of movies available, choosing
+                        what to watch can be difficult. CineMatix
+                        makes discovery easier by using movie content
+                        to identify films that are similar to the
+                        title or description you provide.
+                    </p>
+
+                    <p>
+                        Instead of relying only on a list of popular
+                        titles, you can explore recommendations based
+                        on what you're interested in watching.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="capabilities-section">
+            <div class="about-section-heading">
+                <div class="about-section-label">
+                    <span class="label-line"></span>
+                    <span>WHAT YOU CAN DO</span>
+                </div>
+
+                <h2>
+                    Discover movies
+                    <span>your way.</span>
+                </h2>
+
+                <p>
+                    Explore popular titles or use the recommender
+                    to discover movies related to your interests.
+                </p>
+            </div>
+
+            <div class="capability-grid">
+
+                <article class="capability-card">
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m16 16 4 4"></path>
+                            <path d="M8 11h6"></path>
+                            <path d="M11 8v6"></path>
+                        </svg>
+                    </div>
+
+                    <span class="capability-number">01</span>
+
+                    <h3>Find Similar Movies</h3>
+
+                    <p>
+                        Enter a movie title and discover other films
+                        that are similar according to the content
+                        represented in the recommendation model.
+                    </p>
+
+                    <span class="capability-tag">Title-based search</span>
+                </article>
+
+                <article class="capability-card">
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 5h16v11H9l-5 4V5Z"></path>
+                            <path d="M8 9h8"></path>
+                            <path d="M8 12h5"></path>
+                        </svg>
+                    </div>
+
+                    <span class="capability-number">02</span>
+
+                    <h3>Describe What You Want</h3>
+
+                    <p>
+                        Describe the kind of movie you're looking for.
+                        CineMatix can use your description to find
+                        relevant movies through its content-based
+                        recommendation pipeline.
+                    </p>
+
+                    <span class="capability-tag">Description-based search</span>
+                </article>
+
+                <article class="capability-card">
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 3v18"></path>
+                            <path d="M17 7H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+
+                    <span class="capability-number">03</span>
+
+                    <h3>Filter by Year</h3>
+
+                    <p>
+                        Narrow your recommendation results using
+                        the optional year filter, making it easier
+                        to explore movies from a particular period.
+                    </p>
+
+                    <span class="capability-tag">Optional year filter</span>
+                </article>
+
+                <article class="capability-card">
+                    <div class="capability-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h16v16H4z"></path>
+                            <path d="M8 8h8"></path>
+                            <path d="M8 12h8"></path>
+                            <path d="M8 16h5"></path>
+                        </svg>
+                    </div>
+
+                    <span class="capability-number">04</span>
+
+                    <h3>Explore Trending Movies</h3>
+
+                    <p>
+                        Browse the trending movie collection, view
+                        movie artwork when available, and explore
+                        titles through the featured carousel and
+                        paginated movie grid.
+                    </p>
+
+                    <span class="capability-tag">Movie discovery</span>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="how-section" id="how-it-works">
+            <div class="about-section-heading">
+                <div class="about-section-label">
+                    <span class="label-line"></span>
+                    <span>UNDER THE HOOD</span>
+                </div>
+
+                <h2>
+                    From your input
+                    <span>to recommendations.</span>
+                </h2>
+
+                <p>
+                    A look at how the CineMatix recommendation
+                    pipeline connects machine learning to a web app.
+                </p>
+            </div>
+
+            <div class="pipeline">
+
+                <article class="pipeline-step">
+                    <div class="pipeline-step-number">01</div>
+
+                    <div>
+                        <h3>Your input</h3>
+                        <p>
+                            Enter a movie title or describe the kind
+                            of film you want to discover.
+                        </p>
+                    </div>
+                </article>
+
+                <div class="pipeline-connector" aria-hidden="true">↓</div>
+
+                <article class="pipeline-step">
+                    <div class="pipeline-step-number">02</div>
+
+                    <div>
+                        <h3>Text representation</h3>
+                        <p>
+                            The content-based pipeline uses trained
+                            TF-IDF vectorizers and prepared movie
+                            data to represent textual information
+                            numerically.
+                        </p>
+                    </div>
+                </article>
+
+                <div class="pipeline-connector" aria-hidden="true">↓</div>
+
+                <article class="pipeline-step">
+                    <div class="pipeline-step-number">03</div>
+
+                    <div>
+                        <h3>Similarity search</h3>
+                        <p>
+                            The appropriate recommendation method
+                            finds movies related to your title or
+                            description. An optional year filter
+                            can further narrow the results.
+                        </p>
+                    </div>
+                </article>
+
+                <div class="pipeline-connector" aria-hidden="true">↓</div>
+
+                <article class="pipeline-step">
+                    <div class="pipeline-step-number">04</div>
+
+                    <div>
+                        <h3>Movie results</h3>
+                        <p>
+                            FastAPI returns movie information to the
+                            frontend, where results can be displayed
+                            for you to explore.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+
+            <div class="pipeline-note">
+                <span class="note-symbol" aria-hidden="true">i</span>
+                <p>
+                    Recommendations are based on movie content
+                    similarity. They are not personalized from an
+                    individual user's viewing history or ratings.
+                </p>
+            </div>
+        </section>
+
+        <!-- Technology -->
+        <section class="technology-section">
+            <div class="technology-copy">
+                <div class="about-section-label">
+                    <span class="label-line"></span>
+                    <span>THE TECHNOLOGY</span>
+                </div>
+
+                <h2>
+                    Machine learning
+                    <span>meets web development.</span>
+                </h2>
+
+                <p>
+                    CineMatix connects a trained content-based
+                    recommendation pipeline to a FastAPI backend
+                    and a separate, responsive frontend.
+                </p>
+
+                <p>
+                    The project brings together data preparation,
+                    text vectorization, recommendation logic,
+                    API development, and a user interface in
+                    one end-to-end application.
+                </p>
+            </div>
+
+            <div class="technology-list">
+                <div class="technology-item">
+                    <span class="technology-index">01</span>
+                    <div>
+                        <h3>Python &amp; Machine Learning</h3>
+                        <p>TF-IDF vectorizers and content-based similarity</p>
+                    </div>
+                    <span class="technology-check" aria-hidden="true">✓</span>
+                </div>
+
+                <div class="technology-item">
+                    <span class="technology-index">02</span>
+                    <div>
+                        <h3>FastAPI</h3>
+                        <p>HTTP endpoints for movie discovery and recommendations</p>
+                    </div>
+                    <span class="technology-check" aria-hidden="true">✓</span>
+                </div>
+
+                <div class="technology-item">
+                    <span class="technology-index">03</span>
+                    <div>
+                        <h3>HTML, CSS &amp; JavaScript</h3>
+                        <p>A separate frontend with responsive layouts and themes</p>
+                    </div>
+                    <span class="technology-check" aria-hidden="true">✓</span>
+                </div>
+
+                <div class="technology-item">
+                    <span class="technology-index">04</span>
+                    <div>
+                        <h3>Movie Metadata &amp; TMDB Artwork</h3>
+                        <p>Movie identification and artwork where available</p>
+                    </div>
+                    <span class="technology-check" aria-hidden="true">✓</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to action -->
+        <section class="about-cta">
+            <p class="about-eyebrow">YOUR NEXT WATCH AWAITS</p>
+
+            <h2>
+                Ready to find
+                <span>your next movie?</span>
+            </h2>
+
+            <p>
+                Explore trending titles or find movies related
+                to a film or description you already have in mind.
+            </p>
+
+            <a href="index.html#find-movies" class="about-button">
+                Start Exploring <span aria-hidden="true">→</span>
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Shared Footer -->
+    <footer class="site-footer" id="footer">
+        <div class="footer-container">
+
+            <div class="footer-brand">
+                <a href="index.html#find-movies" class="footer-logo"
+                   aria-label="CineMatix home">
+                    <span class="footer-logo-icon">C</span>
+                    <span class="footer-logo-text">CINE<span>MATIX</span></span>
+                </a>
+
+                <p class="footer-description">
+                    Discover trending movies and find your next
+                    favorite with machine learning.
+                </p>
+            </div>
+
+            <div class="footer-navigation">
+                <h3>Explore</h3>
+
+                <nav aria-label="Footer navigation">
+                    <a href="index.html">Trending</a>
+                    <a href="index.html#trending">Find Movies</a>
+                    <a href="about.html" aria-current="page">About</a>
+                </nav>
+            </div>
+
+            <div class="footer-social">
+                <h3>Connect</h3>
+
+                <div class="social-links">
+                    <a
+                        href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/"
+                        class="social-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn profile"
+                        title="LinkedIn"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.3 18H5.7V9.5h2.6ZM7 8.3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM18.3 18h-2.6v-4.1c0-1 0-2.2-1.4-2.2s-1.6 1.1-1.6 2.1V18h-2.6V9.5h2.5v1.2h.1a2.8 2.8 0 0 1 2.5-1.4c2.7 0 3.1 1.8 3.1 4.1Z"/>
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+
+                    <a
+                        href="https://github.com/YOUR-GITHUB-USERNAME"
+                        class="social-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub profile"
+                        title="GitHub"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 .9a11.1 11.1 0 0 0-3.5 21.6c.6.1.8-.2.8-.5v-2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.6-1.3-1.6-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.3.8 1 .8 2v3c0 .3.2.6.8.5A11.1 11.1 0 0 0 12 .9Z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © <span id="footer-year"></span> CineMatix.
+                Built with curiosity and machine learning.
+            </p>
+
+            <a href="#" class="back-to-top">
+                Back to top <span aria-hidden="true">↑</span>
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>
