@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090909">
+
+    <title>Find Movies | CineMatix Movie Recommender</title>
+    <meta
+        name="description"
+        content="Discover movies with CineMatix. Search by plot description or find similar movies using content-based machine learning."
+    >
+
+    <!-- movie modal -->
+    <link rel="stylesheet" href="../stylesheets/movie_modal.css">
+    <script src="../javascript/movie_modal.js" defer></script>
+
+    <!-- Shared navbar -->
+    <link rel="stylesheet" href="../stylesheets/navbar.css">
+    <script src="../javascript/navbar.js" defer></script>
+
+    <!-- Find Movies page -->
+    <link rel="stylesheet" href="../stylesheets/find_movies.css">
+    <script src="../javascript/find_movies.js" defer></script>
+
+    <!-- Shared footer -->
+    <link rel="stylesheet" href="../stylesheets/footer.css">
+    <script src="../javascript/footer.js" defer></script>
+
+    <script src="../javascript/index.js" defer></script>
+
+</head>
+
+<body id="top">
+
+    <!-- Shared navbar -->
+    <header class="navbar">
+        <a href="index.html" class="logo" aria-label="CineMatix home">
+            <span class="logo-icon">C</span>
+            <span class="logo-text">CINE<span>MATIX</span></span>
+        </a>
+
+        <nav class="nav-links" id="nav-links" aria-label="Main navigation">
+            <a href="index.html" class="nav-link">Trending</a>
+            <a
+                href="find_movies.html"
+                class="nav-link active"
+                aria-current="page"
+            >Find Movies</a>
+            <a href="about.html" class="nav-link">About</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button
+                class="theme-toggle"
+                id="theme-toggle"
+                type="button"
+                aria-label="Switch to light theme"
+                title="Toggle theme"
+            >
+                <span id="theme-icon" aria-hidden="true">☾</span>
+            </button>
+
+            <button
+                class="menu-toggle"
+                id="menu-toggle"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="nav-links"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="find-page">
+
+        <!-- Search hero -->
+        <section class="find-hero">
+            <div class="find-eyebrow">
+                <span class="eyebrow-line"></span>
+                YOUR NEXT MOVIE STARTS HERE
+                <span class="eyebrow-line"></span>
+            </div>
+
+            <h1>
+                Find a movie that
+                <span>matches your mood.</span>
+            </h1>
+
+            <p class="find-intro">
+                Describe the story you want to watch or start with a movie
+                you already love. Let CineMatix find similar films for you.
+            </p>
+
+            <!-- Search panel -->
+            <section class="search-panel" aria-label="Movie search">
+
+                <div class="search-mode-label">HOW WOULD YOU LIKE TO SEARCH?</div>
+
+                <div class="search-modes" role="group" aria-label="Search mode">
+                    <button
+                        class="mode-button active"
+                        type="button"
+                        data-mode="description"
+                        aria-pressed="true"
+                    >
+                        <span class="mode-icon" aria-hidden="true">✦</span>
+                        <span>
+                            <strong>By Description</strong>
+                            <small>Describe the movie you imagine</small>
+                        </span>
+                    </button>
+
+                    <button
+                        class="mode-button"
+                        type="button"
+                        data-mode="title"
+                        aria-pressed="false"
+                    >
+                        <span class="mode-icon" aria-hidden="true">▤</span>
+                        <span>
+                            <strong>By Movie Title</strong>
+                            <small>Find films similar to a movie</small>
+                        </span>
+                    </button>
+                </div>
+
+                <form id="movie-search-form" class="movie-search-form">
+
+                    <!-- Description mode -->
+                    <div class="search-field-group" id="description-field">
+                        <label for="description-input">Describe your ideal movie</label>
+
+                        <textarea
+                            id="description-input"
+                            name="description"
+                            rows="3"
+                            maxlength="1500"
+                            required
+                            placeholder="A magician fighting dark forces, epic battles in ancient kingdoms, a clever detective solving mysterious crimes..."
+                        ></textarea>
+
+                        <div class="field-hint">
+                            <span>Tell us about the story, setting, or genre.</span>
+                            <span id="description-counter">0 / 1500</span>
+                        </div>
+                    </div>
+
+                    <!-- Title mode -->
+                    <div
+                        class="search-field-group"
+                        id="title-field"
+                        hidden
+                    >
+                        <label for="title-input">Search for a movie</label>
+
+                        <div class="title-input-wrap">
+                            <span class="input-search-icon" aria-hidden="true">⌕</span>
+
+                            <input
+                                id="title-input"
+                                type="text"
+                                name="title"
+                                autocomplete="off"
+                                placeholder="Enter a movie title, e.g. Interstellar"
+                                aria-controls="title-suggestions"
+                                aria-expanded="false"
+                            >
+                            <button
+                                type="button"
+                                id="clear-title"
+                                class="clear-title"
+                                aria-label="Clear movie title"
+                                hidden
+                            >×</button>
+                        </div>
+
+                        <div
+                            id="title-suggestions"
+                            class="title-suggestions"
+                            role="listbox"
+                            aria-label="Matching movie titles"
+                            hidden
+                        ></div>
+
+                        <p id="selected-title-note" class="selected-title-note" hidden>
+                            <span aria-hidden="true">✓</span>
+                            <span id="selected-title-text"></span>
+                        </p>
+
+                        <p class="field-hint title-hint">
+                            Choose a matching title before requesting recommendations.
+                        </p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="search-options">
+                        <div class="option-group">
+                            <label for="recommendation-count">Recommendations</label>
+                            <select id="recommendation-count" name="n_recoms">
+                                <option value="5">5 movies</option>
+                                <option value="10" selected>10 movies</option>
+                                <option value="15">15 movies</option>
+                                <option value="20">20 movies</option>
+                                <option value="30">30 movies</option>
+                                <option value="50">50 movies</option>
+                            </select>
+                        </div>
+
+                        <div class="option-group">
+                            <label for="year-filter">Released from</label>
+                            <select id="year-filter" name="limit_year">
+                                <option value="">Any year</option>
+                                <option value="2020">2020 onwards</option>
+                                <option value="2015">2015 onwards</option>
+                                <option value="2010">2010 onwards</option>
+                                <option value="2000">2000 onwards</option>
+                                <option value="1990">1990 onwards</option>
+                                <option value="1980">1980 onwards</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="search-submit"
+                        class="search-submit"
+                    >
+                        <span id="submit-label">Find Movies</span>
+                        <span class="submit-arrow" aria-hidden="true">→</span>
+                    </button>
+
+                    <p class="search-privacy-note">
+                        <span aria-hidden="true">✦</span>
+                        Powered by content-based machine learning
+                    </p>
+                </form>
+            </section>
+        </section>
+
+        <!-- Results -->
+        <section
+            id="recommendation-results"
+            class="results-section"
+            aria-labelledby="results-heading"
+            hidden
+        >
+            <div class="results-header">
+                <div>
+                    <p class="section-eyebrow">YOUR DISCOVERIES</p>
+                    <h2 id="results-heading">Recommended for you</h2>
+                    <p id="results-summary" class="results-summary"></p>
+                </div>
+
+                <span id="results-count" class="results-count"></span>
+            </div>
+
+            <p id="results-status" class="results-status" role="status" aria-live="polite"></p>
+
+            <div id="movie-results-grid" class="movie-results-grid"></div>
+        </section>
+
+        <!-- Initial empty state -->
+        <section id="search-welcome" class="search-welcome">
+            <div class="welcome-symbol" aria-hidden="true">✳</div>
+            <h2>What are you in the mood for?</h2>
+            <p>
+                Start with a movie title or describe the kind of story you'd
+                like to explore. Your recommendations will appear here.
+            </p>
+
+            <div class="example-searches">
+                <button type="button" class="example-chip" data-example="A mysterious adventure exploring ancient ruins">
+                    Ancient mysteries
+                </button>
+                <button type="button" class="example-chip" data-example="A clever detective solving a complex murder mystery">
+                    Detective mysteries
+                </button>
+                <button type="button" class="example-chip" data-example="An epic fantasy adventure with magic and mythical creatures">
+                    Fantasy adventures
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Shared footer -->
+    <footer class="site-footer" id="footer">
+        <div class="footer-container">
+
+            <div class="footer-brand">
+                <a href="index.html" class="footer-logo" aria-label="CineMatix home">
+                    <span class="footer-logo-icon">C</span>
+                    <span class="footer-logo-text">CINE<span>MATIX</span></span>
+                </a>
+
+                <p class="footer-description">
+                    Discover trending movies and find your next
+                    favorite with machine learning.
+                </p>
+            </div>
+
+            <div class="footer-navigation">
+                <h3>Explore</h3>
+                <nav aria-label="Footer navigation">
+                    <a href="index.html">Trending</a>
+                    <a href="find_movies.html" aria-current="page">Find Movies</a>
+                    <a href="about.html">About</a>
+                </nav>
+            </div>
+
+            <div class="footer-social">
+                <h3>Connect</h3>
+
+                <div class="social-links">
+                    <a
+                        href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/"
+                        class="social-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn profile"
+                        title="LinkedIn"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM8.3 18H5.7V9.5h2.6ZM7 8.3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM18.3 18h-2.6v-4.1c0-1 0-2.2-1.4-2.2s-1.6 1.1-1.6 2.1V18h-2.6V9.5h2.5v1.2h.1a2.8 2.8 0 0 1 2.5-1.4c2.7 0 3.1 1.8 3.1 4.1Z"/>
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+
+                    <a
+                        href="https://github.com/YOUR-GITHUB-USERNAME"
+                        class="social-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub profile"
+                        title="GitHub"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 .9a11.1 11.1 0 0 0-3.5 21.6c.6.1.8-.2.8-.5v-2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.6-1.3-1.6-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.3.8 1 .8 2v3c0 .3.2.6.8.5A11.1 11.1 0 0 0 12 .9Z"/>
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                © <span id="footer-year"></span> CineMatix.
+                Built with curiosity and machine learning.
+            </p>
+
+            <a href="#top" class="back-to-top">
+                Back to top <span aria-hidden="true">↑</span>
+            </a>
+        </div>
+    </footer>
+    <!-- movie modal -->
+     <div id="movie-modal-mount"></div>
+</body>
+</html>

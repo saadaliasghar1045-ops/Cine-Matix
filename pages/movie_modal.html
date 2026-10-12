@@ -1,0 +1,84 @@
+
+<template id="movie-modal-template">
+    <div
+        class="movie-modal"
+        id="movie-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        hidden
+    >
+        <div class="movie-modal__backdrop" data-close-modal></div>
+
+        <section class="movie-modal__panel">
+            <button
+                class="movie-modal__close"
+                type="button"
+                aria-label="Close movie details"
+                data-close-modal
+            >
+                &times;
+            </button>
+
+            <div class="movie-modal__hero" id="modal-hero">
+                <div class="movie-modal__hero-shade"></div>
+
+                <div class="movie-modal__hero-content">
+                    <p class="movie-modal__eyebrow">CINEMATIX EXCLUSIVE VIEW</p>
+                    <h2 id="modal-title">Loading movie...</h2>
+                    <p id="modal-meta" class="movie-modal__meta"></p>
+
+                    <p id="modal-overview" class="movie-modal__overview">
+                        Fetching movie information...
+                    </p>
+
+                    <div class="movie-modal__actions">
+                        <button
+                            id="modal-trailer-button"
+                            class="movie-modal__button movie-modal__button--primary"
+                            type="button"
+                            hidden
+                        >
+                            ▶ Watch trailer
+                        </button>
+
+                        <a
+                            id="modal-tmdb-link"
+                            class="movie-modal__button movie-modal__button--secondary"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            hidden
+                        >
+                            More information ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="movie-modal__body">
+                <p id="modal-status" class="movie-modal__status"
+                   aria-live="polite"></p>
+
+                <section class="movie-modal__section" id="modal-video-section" hidden>
+                    <h3>Trailer</h3>
+                    <div class="movie-modal__video" id="modal-video"></div>
+                </section>
+
+                <section class="movie-modal__section">
+                    <h3>About this movie</h3>
+                    <div class="movie-modal__facts" id="modal-facts"></div>
+                </section>
+
+                <section class="movie-modal__section" id="modal-cast-section" hidden>
+                    <h3>Cast</h3>
+                    <div class="movie-modal__cast" id="modal-cast"></div>
+                </section>
+
+                <section class="movie-modal__section" id="modal-images-section" hidden>
+                    <h3>Images</h3>
+                    <div class="movie-modal__images" id="modal-images"></div>
+                </section>
+            </div>
+        </section>
+    </div>
+</template>
