@@ -802,35 +802,73 @@
     }
 }
 
-/* card explore button  */
-.explore-movie-button {
+
+/* ---------- Explore Button Alignment Fix ---------- */
+
+/* Make each result card a consistent vertical layout */
+.result-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+}
+
+/* Keep the poster at a consistent size */
+.result-poster-wrap {
+    flex-shrink: 0;
+}
+
+/* Let the card body fill the available space */
+.result-card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Reserve consistent space for movie titles */
+.result-title {
+    min-height: 2.8em;
+}
+
+/* Keep year placement consistent */
+.result-year {
+    min-height: 1.2em;
+}
+
+/* Keep the existing button design; align it at the bottom */
+.result-card .explore-movie-button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-top: 13px;
+    margin-top: auto;
     padding: 10px 12px;
+
     color: var(--text);
     background: color-mix(in srgb, var(--accent) 12%, var(--surface));
     border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
     border-radius: 8px;
+
     font: inherit;
     font-size: 0.8rem;
     font-weight: 750;
     cursor: pointer;
+
     transition: background 0.2s, transform 0.2s;
 }
 
-.explore-movie-button:hover {
+.result-card .explore-movie-button:hover:not(:disabled) {
     background: color-mix(in srgb, var(--accent) 24%, var(--surface));
     transform: translateY(-1px);
 }
 
-.explore-movie-button:disabled {
+.result-card .explore-movie-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
 }
+
 
 [hidden] {
     display: none !important;

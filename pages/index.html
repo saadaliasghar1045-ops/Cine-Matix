@@ -11,6 +11,14 @@
         content="Explore trending movies and discover your next favorite with CineMatix."
     >
 
+    <!-- icon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+
+
+    <!-- Reusable movie details modal -->
+    <link rel="stylesheet" href="../stylesheets/movie_modal.css">
+    <script src="../javascript/movie_modal.js" defer></script>
+
     <!-- Navbar styles and functionality -->
     <link rel="stylesheet" href="../stylesheets/navbar.css">
     <script src="../javascript/navbar.js" defer></script>
@@ -209,7 +217,7 @@
 
         <!-- Brand -->
         <div class="footer-brand">
-            <a href="#find-movies" class="footer-logo" aria-label="CineMatix home">
+            <a href="index.html" class="footer-logo" aria-label="CineMatix home">
                 <span class="footer-logo-icon">C</span>
                 <span class="footer-logo-text">CINE<span>MATIX</span></span>
             </a>
@@ -237,7 +245,7 @@
 
             <div class="social-links">
                 <a
-                    href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/"
+                    href="https://www.linkedin.com/in/saad-ali-asghar"
                     class="social-link"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -251,7 +259,7 @@
                 </a>
 
                 <a
-                    href="https://github.com/YOUR-GITHUB-USERNAME"
+                    href="https://github.com/saadaliasghar1045-ops"
                     class="social-link"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -282,6 +290,8 @@
     
 </footer>
 
+<!-- Mount point for the reusable movie details modal -->
+<div id="movie-modal-mount"></div>
 
 </body>
 </html>

@@ -172,58 +172,171 @@
     margin-bottom: 20px;
 }
 
-/* ---------- Movie cards ---------- */
+
+/* ---------- Trending Movie Cards ---------- */
 
 .movie-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 24px 18px;
+    gap: 28px 18px;
+    align-items: stretch;
 }
 
 .movie-card {
     min-width: 0;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: default;
+    transition: transform 0.25s ease;
 }
 
 .movie-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
 }
 
-.movie-poster {
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    display: block;
-    object-fit: cover;
-    background: var(--surface);
-    border-radius: 7px;
-    border: 1px solid var(--border);
-}
-
+/* Consistent poster dimensions */
+.movie-poster,
 .poster-placeholder {
     width: 100%;
     aspect-ratio: 2 / 3;
+    flex-shrink: 0;
+    display: block;
+    object-fit: cover;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.poster-placeholder {
     display: grid;
     place-items: center;
     text-align: center;
     padding: 12px;
-    background: var(--surface);
     color: var(--muted);
-    border-radius: 7px;
 }
 
+/* Give every title the same reserved height */
 .movie-title {
-    margin-top: 11px;
+    margin-top: 12px;
     font-size: 14px;
     line-height: 1.5;
     font-weight: 700;
     overflow-wrap: anywhere;
+
+    /* Maximum two lines, consistent card layout */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+
+    min-height: calc(1.5em * 2);
 }
 
+/* Reserve space for the release year */
 .movie-meta {
     margin-top: 5px;
     color: var(--muted);
     font-size: 12px;
+    line-height: 1.5;
+    min-height: 18px;
+}
+
+/* ---------- Red Explore Button ---------- */
+
+.movie-card .explore-movie-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 42px;
+    margin-top: auto;
+    padding: 11px 14px;
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+
+    color: #ffffff;
+    background: linear-gradient(135deg, #cf0202d7, #be0000d2);
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 8px;
+
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(185, 28, 28, 0.18);
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.movie-card .explore-movie-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #cf0202, #be0000);
+    box-shadow: 0 6px 18px rgba(220, 38, 38, 0.3);
+    transform: translateY(-2px);
+}
+
+.movie-card .explore-movie-button:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.movie-card .explore-movie-button:focus-visible {
+    outline: 3px solid #fca5a5;
+    outline-offset: 3px;
+}
+
+.movie-card .explore-movie-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* ---------- Responsive Grid ---------- */
+
+@media (max-width: 1000px) {
+    .movie-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .movie-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px 12px;
+    }
+}
+
+@media (max-width: 420px) {
+    .movie-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 22px 12px;
+    }
+
+    .movie-card .explore-movie-button {
+        min-height: 40px;
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .movie-card,
+    .movie-card .explore-movie-button {
+        transition: none;
+    }
+
+    .movie-card:hover,
+    .movie-card .explore-movie-button:hover:not(:disabled) {
+        transform: none;
+    }
 }
 
 .pagination {
@@ -362,3 +475,6 @@ html[data-theme="light"] .hero::after {
         );
     }
 }
+
+
+/* Over riding the card styling */

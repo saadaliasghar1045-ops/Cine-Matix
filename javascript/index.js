@@ -69,6 +69,25 @@ function getMovieYear(movie) {
         ?? "";
 }
 
+/*
+   IMPORTANT:
+   Use an actual TMDB ID for the movie details endpoint.
+   Do not use a generic movie.id because it might be a
+   MovieLens ID instead.
+*/
+function getTmdbId(movie) {
+    const id = movie.tmdbId
+        ?? movie.tmdb_id
+        ?? movie.tmdbID
+        ?? movie.tmdbid;
+
+    if (id === undefined || id === null || String(id).trim() === "") {
+        return "";
+    }
+
+    return String(id).trim();
+}
+
 /* =========================================================
    TMDB IMAGE URL HELPERS
 ========================================================= */
@@ -80,12 +99,10 @@ function resolveImageUrl(path, baseUrl) {
 
     const value = path.trim();
 
-    // Already a complete image URL.
     if (/^https?:\/\//i.test(value)) {
         return value;
     }
 
-    // Handle paths that contain the TMDB image domain.
     if (value.startsWith("//")) {
         return `https:${value}`;
     }
@@ -128,6 +145,47 @@ function preloadBackdrop(url) {
 }
 
 /* =========================================================
+   MOVIE DETAILS MODAL INTEGRATION
+========================================================= */
+
+/*
+   The reusable movie_modal.js should listen for clicks on
+   .explore-movie-button and read its data-tmdb-id attribute.
+
+   We use delegated events because trending cards are created
+   dynamically after the API response arrives.
+*/
+
+function openMovieDetails(tmdbId) {
+    if (!tmdbId) {
+        console.warn(
+            "This movie does not have a TMDB ID. Cannot open movie details."
+        );
+
+        return;
+    }
+
+    /*
+       Reuse the existing modal's click handler by creating
+       a temporary Explore button with the same class and
+       data attribute.
+
+       This supports modal scripts that use delegated click
+       events on document.
+    */
+    const modalTrigger = document.createElement("button");
+
+    modalTrigger.type = "button";
+    modalTrigger.className = "explore-movie-button";
+    modalTrigger.dataset.tmdbId = String(tmdbId);
+    modalTrigger.hidden = true;
+
+    document.body.appendChild(modalTrigger);
+    modalTrigger.click();
+    modalTrigger.remove();
+}
+
+/* =========================================================
    FETCH TRENDING MOVIES
 ========================================================= */
 
@@ -165,6 +223,7 @@ async function loadTrendingMovies() {
             updatePagination();
             updateHero();
             stopAutoplay();
+
             return;
         }
 
@@ -209,12 +268,13 @@ function renderTrendingMovies() {
     moviesOnPage.forEach((movie) => {
         const card = document.createElement("article");
         card.className = "movie-card";
-        card.tabIndex = 0;
 
         const title = getMovieTitle(movie);
         const posterUrl = getPosterUrl(movie);
         const year = getMovieYear(movie);
+        const tmdbId = getTmdbId(movie);
 
+        /* Poster */
         if (posterUrl) {
             const poster = document.createElement("img");
 
@@ -233,6 +293,7 @@ function renderTrendingMovies() {
             card.appendChild(createPosterPlaceholder(title));
         }
 
+        /* Title */
         const titleElement = document.createElement("h3");
 
         titleElement.className = "movie-title";
@@ -240,6 +301,7 @@ function renderTrendingMovies() {
 
         card.appendChild(titleElement);
 
+        /* Release year */
         if (year) {
             const yearElement = document.createElement("p");
 
@@ -249,11 +311,48 @@ function renderTrendingMovies() {
             card.appendChild(yearElement);
         }
 
+        /* Explore button */
+        const exploreButton = document.createElement("button");
+
+        exploreButton.type = "button";
+        exploreButton.className = "explore-movie-button";
+        exploreButton.textContent = "Explore";
+        exploreButton.dataset.tmdbId = tmdbId;
+        exploreButton.setAttribute(
+            "aria-label",
+            `Explore details for ${title}`
+        );
+
+        if (!tmdbId) {
+            exploreButton.disabled = true;
+            exploreButton.title =
+                "Movie details are unavailable because this movie has no TMDB ID.";
+        }
+
+        card.appendChild(exploreButton);
         movieGrid.appendChild(card);
     });
 
     updatePagination();
 }
+
+/* =========================================================
+   EXPLORE BUTTON EVENTS
+========================================================= */
+
+/*
+   Delegated listener: works for cards rendered now and
+   cards created later when the user changes pagination.
+
+   IMPORTANT:
+   If movie_modal.js already handles .explore-movie-button
+   clicks using document-level delegation, do not add another
+   click handler here. The modal script will handle the click.
+*/
+
+
+
+
 
 /* =========================================================
    PAGINATION
@@ -313,6 +412,10 @@ function updateHero() {
         heroCounter.textContent = "0 / 0";
         heroBackdrop.style.backgroundImage = "none";
 
+        heroDetails.dataset.tmdbId = "";
+        heroDetails.disabled = true;
+        heroDetails.textContent = "Explore Movie";
+
         return;
     }
 
@@ -321,8 +424,8 @@ function updateHero() {
 
     const movie = trendingMovies[featuredIndex];
     const backdropUrl = getBackdropUrl(movie);
+    const tmdbId = getTmdbId(movie);
 
-    // Update text immediately without waiting for image downloads.
     heroTitle.textContent = getMovieTitle(movie);
     heroDescription.textContent = getMovieDescription(movie);
 
@@ -330,7 +433,6 @@ function updateHero() {
         `${featuredIndex + 1} / ${trendingMovies.length}`;
 
     if (backdropUrl) {
-        // Preload before applying the new background.
         preloadBackdrop(backdropUrl);
 
         heroBackdrop.style.backgroundImage =
@@ -339,7 +441,18 @@ function updateHero() {
         heroBackdrop.style.backgroundImage = "none";
     }
 
-    // Prepare the following slide in advance.
+    /* Connect hero button to the current featured movie */
+    heroDetails.dataset.tmdbId = tmdbId;
+    heroDetails.textContent = "Explore Movie";
+    heroDetails.disabled = !tmdbId;
+
+    if (!tmdbId) {
+        heroDetails.title =
+            "Movie details are unavailable because this movie has no TMDB ID.";
+    } else {
+        heroDetails.removeAttribute("title");
+    }
+
     const nextIndex =
         (featuredIndex + 1) % trendingMovies.length;
 
@@ -410,11 +523,6 @@ document.addEventListener("visibilitychange", () => {
    FEATURED MOVIE BUTTON
 ========================================================= */
 
-heroDetails.addEventListener("click", () => {
-    document.getElementById("trending").scrollIntoView({
-        behavior: "smooth"
-    });
-});
 
 /* =========================================================
    INITIALIZE APPLICATION
