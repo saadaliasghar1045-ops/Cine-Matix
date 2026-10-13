@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-    const API_BASE_URL = "http://127.0.0.1:8000";
+    const API_BASE_URL = "https://content-based-movie-recommender-api.fastapicloud.dev";
     const MODAL_HTML_URL = new URL(
     "../pages/movie_modal.html",
     document.querySelector('script[src*="movie_modal.js"]')?.src

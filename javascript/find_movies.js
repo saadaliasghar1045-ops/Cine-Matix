@@ -5,7 +5,7 @@
 ========================================= */
 
 // Change this URL if you deploy your FastAPI backend.
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://content-based-movie-recommender-api.fastapicloud.dev";
 
 const MATCH_TITLE_URL = `${API_BASE_URL}/match_title`;
 const RECOMMEND_URL = `${API_BASE_URL}/recommend`;

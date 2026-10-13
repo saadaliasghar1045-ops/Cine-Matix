@@ -3,7 +3,7 @@
    CONFIGURATION
 ========================================================= */
 
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://content-based-movie-recommender-api.fastapicloud.dev";
 const TRENDING_URL = `${API_BASE_URL}/trending`;
 
 const MOVIES_PER_PAGE = 20;
